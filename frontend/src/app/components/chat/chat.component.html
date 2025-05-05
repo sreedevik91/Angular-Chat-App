@@ -1,0 +1,217 @@
+<!-- <div class="mt-5" style="height: 100px;">
+    chat works
+
+
+<button class="btn" (click)="toggle()">Click</button>
+</div> -->
+
+
+<!-- <div class="container-fluid h-100">
+    <div class="row h-100">
+      <div class="col-md-8 offset-md-2 col-lg-6 offset-lg-3 h-100">
+        <div class="card h-100 shadow-sm">
+          <div class="card-header bg-primary text-white">
+            <h4 class="mb-0">Chat App</h4>
+          </div>
+          <div class="card-body d-flex flex-column h-100 p-0">
+            <div class="message-list flex-grow-1 p-3 overflow-auto">
+              <div *ngFor="let message of messages" class="message mb-3">
+                <div class="d-flex" [ngClass]="message.isSent ? 'justify-content-end' : 'justify-content-start'">
+                  <div class="message-bubble p-3 rounded" [ngClass]="message.isSent ? 'bg-primary text-white' : 'bg-light text-dark'">
+                    <strong>{{ message.sender }}</strong>
+                    <p class="mb-1">{{ message.content }}</p>
+                    <small class="text-muted">{{ message.timestamp | date:'shortTime' }}</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="message-input p-3 border-top">
+              <form (ngSubmit)="sendMessage()" class="input-group">
+                <input type="text" class="form-control" placeholder="Type a message..." [(ngModel)]="newMessage" name="newMessage" required>
+                <button type="submit" class="btn btn-primary">Send</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> -->
+
+
+  <!-- chat 1 -->
+
+  
+    <div class="container">
+        <div class="row clearfix">
+            <div class="col-lg-12">
+                <div class="card chat-app">
+                    <div id="plist" class="people-list">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" (click)="search()"><i class="fa fa-search"></i></span>
+                            </div>
+                            <input type="text" (input)="search()" class="form-control" [(ngModel)]="searchValue" placeholder="Search...">
+                        </div>
+                        <ul class="list-unstyled chat-list mt-2 mb-0">
+                        @for (item of usersList(); track $index) {
+                            <li class="clearfix" [ngClass]="{'active':item._id===receiverId}" (click)="startMessage(item._id)">
+                                <img [src]="item.img ? item.img : 'https://img.freepik.com/free-vector/user-blue-gradient_78370-4692.jpg' " alt="avatar">
+                                <div class="about">
+                                    <div class="name">{{item.name}}</div>
+                                    <div class="status"> <i class="fa fa-circle" [ngClass]="formatLastSeen(item.lastSeen,item.online)==='Online' ? 'online' : 'offline' "></i>                                             
+                                    <!-- <div class="status"> <i class="fa fa-circle online"></i> </div> -->
+                                        <!-- @if(item.lastSeen && item.online){ -->
+                                            <small>{{formatLastSeen(item.lastSeen,item.online)}}</small>
+                                        <!-- } -->
+                                    </div>     
+
+                                </div>
+                            </li>
+                        }
+                        </ul>
+                    </div>
+                    <div class="chat">
+                        @if(receiverId){
+                            <div class="chat-header clearfix">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <a href="javascript:void(0);" data-toggle="modal" data-target="#view_info">
+                                            <img [src]="receiverData().img ? receiverData().img : 'https://img.freepik.com/free-vector/user-blue-gradient_78370-4692.jpg' " alt="avatar">
+                                        </a>
+                                        <div class="chat-about">
+                                            <h6 class="m-b-0">{{receiverData().name}}</h6>
+                                            <small>
+                                                <!-- @if(receiverData().lastSeen && receiverData().online){ -->
+                                                    {{formatLastSeen(receiverData().lastSeen,receiverData().online)}}
+                                                <!-- } -->
+                                            </small>
+                                        </div>
+                                    </div>
+                                    <!-- <div class="col-lg-6 hidden-sm text-right">
+                                        <a href="javascript:void(0);" class="btn btn-outline-secondary"><i class="fa fa-camera"></i></a>
+                                        <a href="javascript:void(0);" class="btn btn-outline-primary"><i class="fa fa-image"></i></a>
+                                        <a href="javascript:void(0);" class="btn btn-outline-info"><i class="fa fa-cogs"></i></a>
+                                        <a href="javascript:void(0);" class="btn btn-outline-warning"><i class="fa fa-question"></i></a>
+                                    </div> -->
+                                </div>
+                            </div>
+                         
+                            <div class="chat-history">
+                                <ul class="m-b-0">
+                                    @for (item of userReceiverChats(); track $index) {
+
+                                        <ng-template #chatDisplay>
+                                            @if(item.type === 'image'){
+                                                <img [src]="item.message" alt="" class="img-fluid" width="100px" height="100px">
+                                                }@else if(item.type === 'video'){
+                                                <video controls width="100px" height="100px">
+                                                    <source [src]="item.message" type="video/mp4">
+                                                </video>
+                                                }@else if(item.type === 'audio'){
+                                                <audio controls>
+                                                    <source [src]="item.message" type="audio/ogg">
+                                                </audio>
+                                                }@else if(item.type === 'text'){
+                
+                                                {{item.message}}
+                                                }@else if(item.type === 'raw'){
+                
+                                                <a [href]="item.message" target="_blank" download="{{ item.type }}"
+                                                    class="btn btn-link">
+                                                    📄 {{ item.type || 'Download File' }}
+                                                </a>
+                                                }@else{
+                                                <p>Unsupported file type</p>
+                                                }
+                                        </ng-template>
+
+                                        @if(item.sender===userId){
+                                            <li class="clearfix">
+                                                <div class="message-data text-right float-right">
+                                                    <span class="message-data-time">{{item.date| date:'medium'}}</span>
+                                                    <!-- <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="avatar"> -->
+                                                </div>
+                                                <div class="message other-message float-right"> 
+                                                    <!-- {{item.message}} -->
+
+                                                   <ng-container *ngTemplateOutlet="chatDisplay"></ng-container>
+
+
+                                                </div>
+                                            </li>
+                                        }@else {
+                                            <li class="clearfix">
+                                                <div class="message-data text-right">
+                                                    <span class="message-data-time">{{item.date| date:'medium'}}</span>
+                                                    <!-- <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="avatar"> -->
+                                                </div>
+                                                <!-- <div class="message other-message"> {{item.message}}</div> -->
+                                                <ng-container *ngTemplateOutlet="chatDisplay"></ng-container>
+                                            
+                                            </li>
+                                        }
+                                      
+                                    }
+                                </ul>
+                            </div>
+                            <div class="chat-message clearfix chat-footer">
+                                <form>
+                                    <div class="row align-items-center">
+                                        <!-- Emoji Picker Button -->
+                                        <div class="col-auto">
+                                            <button type="button" class="btn btn-light btn-sm" (click)="toggleEmojiPicker()">
+                                                😊
+                                            </button>
+                                        </div>
+                                        <!-- File Upload Button -->
+                                        <div class="col-auto">
+                                            <input type="file" id="fileInput" #fileInput (change)="handleFileUpload($event)" hidden>
+                                            <button type="button" class="btn btn-light btn-sm" (click)="triggerFileInput()">
+                                                📎
+                                            </button>
+                                        </div>
+                                        <!-- Voice Message Button -->
+                                        <div class="col-auto">
+                                            @if(!recording){
+                                            <button type="button" class="btn btn-light btn-sm" (click)="startRecording()">
+                                                🎤
+                                            </button>
+                                            }
+                                            @if(recording){
+                                            <span class="recording-indicator">🔴 Recording...</span>
+                                            <button type="button" class="btn btn-light btn-sm" (click)="stopRecording()">
+                                                ⏹️
+                                            </button>
+                                            }
+                                        </div>
+                                        <div class="col">
+                                            <input type="text" placeholder="Type a message" name="message" [(ngModel)]="chatObj.message" class="form-control"
+                                            (input)="startedTyping()" />
+                                        </div>
+                                        <!-- Send Button -->
+                                        <div class="col-auto">
+                                            <button class="btn btn-info btn-sm px-3 rounded-pill" type="submit"
+                                                (click)="sendMessage()">
+                                                <i class="fa fa-send"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                                <!-- Emoji Picker -->
+                                @if(showEmojiPicker){
+                                <div>
+                                    <emoji-picker (emoji-click)="addEmoji($event)"></emoji-picker>
+                                </div>
+                                }
+                            </div>
+                        }@else {
+                            We Connect.... <br>
+                            Start Connecting
+                        }
+                      
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+

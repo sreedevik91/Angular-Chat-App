@@ -1,0 +1,103 @@
+
+<div class="wrapper overflow-y-hidden">
+    <app-alert></app-alert>
+    <div class="logo">
+        <img src="https://blog.animizer.net/wp-content/uploads/2024/02/chat-2389223_640.png" alt="">
+    </div>
+    <div class="text-center mt-4 name">
+        We Connect
+    </div>
+    @if(showLoginForm){
+    <form class="p-3 mt-3" #loginForm="ngForm">
+        <div class="form-field d-flex align-items-center">
+            <!-- <span class="far fa-user"></span> -->
+            <span><i class="bi bi-person"></i></span>
+            <input type="text" #fUserName="ngModel" name="username" [(ngModel)]="loginObj.username" id="userName"
+                placeholder="Username" required minlength="3" pattern="^[a-zA-Z ]*$">
+        </div>
+        @if((fUserName.touched || fUserName.dirty) && fUserName.errors?.['required']){
+        <span class="text-danger">This is required</span>
+        }@else if((fUserName.touched || fUserName.dirty) && fUserName.errors?.['minlength']){
+        <span class="text-danger">Minimum 3 characters required</span>
+        }@else if((fUserName.touched || fUserName.dirty) && fUserName.errors?.['pattern']){
+        <span class="text-danger">Only characters are accepted</span>
+        }
+        <div class="form-field d-flex align-items-center">
+            <!-- <span class="fas fa-key"></span> -->
+            <span><i class="bi bi-key"></i></span>
+
+            <input type="password" #fPassword="ngModel" name="password" [(ngModel)]="loginObj.password" id="fPassword"
+                placeholder="Password" required minlength="8">
+        </div>
+        @if((fPassword.touched || fPassword.dirty) && fPassword.errors?.['required']){
+        <span class="text-danger">This is required</span>
+        }@else if((fPassword.touched || fPassword.dirty) && fPassword.errors?.['minlength']){
+        <span class="text-danger">Minimum 8 characters required</span>
+        }
+
+        <button class="btn btnSubmit mt-3" (click)="login()" [disabled]="loginForm.invalid">Login</button>
+    </form>
+    <div class="text-center fs-6">
+        Do not have an account ? <a class="text-primary text-decoration-none pointer" (click)="showLoginForm=false">Sign
+            up</a>
+    </div>
+    }@else {
+
+    <form class="p-3 mt-3" #registerForm="ngForm">
+        <div class="form-field d-flex align-items-center">
+            <span><i class="bi bi-person-circle"></i></span>
+            <input type="text" name="name" #fName="ngModel" [(ngModel)]="registerObj.name" id="name" placeholder="Name"
+                required minlength="3" pattern="^[a-zA-Z ]*$">
+        </div>
+        @if((fName.touched || fName.dirty) && fName.errors?.['required']){
+        <span class="text-danger">This is required</span>
+        }@else if((fName.touched || fName.dirty) && fName.errors?.['minlength']){
+        <span class="text-danger">Minimum 3 characters required</span>
+        }@else if((fName.touched || fName.dirty) && fName.errors?.['pattern']){
+        <span class="text-danger">Only characters are accepted</span>
+        }
+
+        <div class="form-field d-flex align-items-center">
+            <span><i class="bi bi-envelope"></i></span>
+            <input type="email" name="email" #fEmail="ngModel" [(ngModel)]="registerObj.email" id="email"
+                placeholder="Email" required>
+        </div>
+        @if((fEmail.touched || fEmail.dirty) && fEmail.errors?.['required']){
+        <span class="text-danger">This is required</span>
+        }
+        <div class="form-field d-flex align-items-center">
+            <span><i class="bi bi-person"></i></span>
+            <input type="text" name="username" #fUsername="ngModel" [(ngModel)]="registerObj.username" id="username"
+                placeholder="Username" required minlength="3">
+        </div>
+        @if((fUsername.touched || fUsername.dirty) && fUsername.errors?.['required']){
+        <span class="text-danger">This is required</span>
+        }@else if((fUsername.touched || fUsername.dirty) && fUsername.errors?.['minlength']){
+        <span class="text-danger">Minimum 3 characters required</span>
+        }
+
+        <div class="form-field d-flex align-items-center">
+            <span><i class="bi bi-key"></i></span>
+            <input type="password" name="password" #fPassword="ngModel" [(ngModel)]="registerObj.password"
+                id="fPassword" placeholder="Password" required minlength="8">
+        </div>
+        @if((fPassword.touched || fPassword.dirty) && fPassword.errors?.['required']){
+        <span class="text-danger">This is required</span>
+        }@else if((fPassword.touched || fPassword.dirty) && fPassword.errors?.['minlength']){
+        <span class="text-danger">Minimum 3 characters required</span>
+        }
+
+        <button class="btn btnSubmit mt-3" [disabled]="registerForm.invalid" (click)="register()">Register</button>
+
+        <button class="btn btnCancel mt-3" (click)="cancel()">Cancel</button>
+    </form>
+
+    <div class="text-center fs-6">
+        Already have an account ? <a class="text-primary text-decoration-none pointer"
+            (click)="showLoginForm=true">Login</a>
+    </div>
+    }
+
+
+</div>
+

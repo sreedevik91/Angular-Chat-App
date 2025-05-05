@@ -1,0 +1,135 @@
+
+
+
+
+
+<div class="d-flex flex-column mb-3 overflow-y-hidden">
+  <div class="p-2">
+    <div class="container-fluid">
+      <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg fixed-top" style="background-color: rgb(34, 206, 215);">
+      <!-- Container wrapper -->
+      <div class="container">
+        <!-- Navbar brand -->
+        <a class="navbar-brand" href="#">
+          <img src="https://blog.animizer.net/wp-content/uploads/2024/02/chat-2389223_640.png" alt="Bootstrap" width="35" height="35">
+        </a>
+    
+        <!-- Toggle button -->
+        <button class="navbar-toggler" type="button" data-mdb-collapse-init
+          data-mdb-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+          aria-label="Toggle navigation">
+          <i class="fas fa-bars"></i>
+        </button>
+    
+        <!-- Collapsible wrapper -->
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <!-- Left links -->
+          <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+            <!-- <li class="nav-item">
+              <a class="nav-link d-flex flex-column text-center active" aria-current="page" href="#"><i class="fas fa-home fa-lg my-2"></i><span class="small">Home</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link d-flex flex-column text-center" aria-current="page" href="#"><i class="fas fa-user-friends fa-lg my-2"></i><span class="small">My Network</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link d-flex flex-column text-center" aria-current="page" href="#"><i class="fas fa-briefcase fa-lg my-2"></i><span class="small">Jobs</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link d-flex flex-column text-center" aria-current="page" href="#"><i class="fas fa-comment-dots fa-lg my-2"></i><span class="small">Messaging</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link d-flex flex-column text-center" aria-current="page" href="#"><i class="fas fa-bell fa-lg my-2"></i><span class="small">Notifications</span></a>
+            </li> -->
+            <li class="nav-item">  
+              <img
+              [src]="userImg? userImg : 'https://img.freepik.com/free-vector/user-blue-gradient_78370-4692.jpg' "
+              class="rounded-circle"
+              height="30"
+              alt=""
+              loading="lazy"
+            /></li>
+            <li class="nav-item dropdown">
+              <a class="nav-link d-flex align-items-center text-white" role="button"  data-bs-toggle="modal" data-bs-target="#exampleModal">
+                {{userName}}
+              </a>
+              <!-- <a class="nav-link dropdown-toggle d-flex align-items-center text-white" href="#" id="navbarDropdownMenuLink"
+                role="button" data-mdb-dropdown-init aria-expanded="false">
+                <img
+                  src="https://mdbootstrap.com/img/Photos/Avatars/img%20(9).jpg"
+                  class="rounded-circle"
+                  height="30"
+                  alt=""
+                  loading="lazy"
+                />
+              </a> -->
+              <!-- <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <li><a class="dropdown-item" href="#">My profile</a></li>
+                <li><a class="dropdown-item" href="#">Settings</a></li>
+                <li><a class="dropdown-item" (click)="logout()">Logout</a></li>
+              </ul> -->
+            </li>
+            <li><a class="nav-link d-flex align-items-center text-white" role="button" (click)="logout()"><i class="bi bi-power"></i></a></li>
+          </ul>
+          <!-- Left links -->
+        </div>
+        <!-- Collapsible wrapper -->
+      </div>
+      <!-- Container wrapper -->
+  
+    <!-- <input type="checkbox" [checked]="chatService.checkbox()"> <label for="">Checked</label> -->
+  
+  
+    </nav>
+    <!-- Navbar -->
+  
+  
+     <!-- Button trigger modal -->
+  <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+      Launch demo modal
+    </button> -->
+    
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Profile</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-md-4">
+                <div class="text-center">
+                  <img [src]="imgUrl ? imgUrl : userData().img" class="rounded-circle" alt="Profile Picture" width="100" height="100">
+                </div>
+              </div>
+              <div class="col-md-8">
+                <div class=" d-flex flex-column mb-3">
+                 <p> Name:{{userData().name}}</p>
+                 <p> Email:{{userData().email}}</p>
+                  <input type="file" (change)="onImage($event)">
+                </div>
+  
+              <!-- <form action="updateform"></form> --> 
+  
+              </div>
+            </div>
+          </div>
+          <!-- <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Edit</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div> -->
+        </div>
+      </div>
+    </div>
+  
+  </div>
+  </div>
+  <div class="p-2">
+    <div class="mt-5 pt-5" style="margin-top: 200px;">
+      <router-outlet/>
+    
+    </div>
+  </div>
+</div>
