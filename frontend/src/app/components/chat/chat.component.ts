@@ -1,4 +1,4 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA, ElementRef, inject, OnDestroy, OnInit, signal, ViewChild } from '@angular/core';
+import { Component, computed, CUSTOM_ELEMENTS_SCHEMA, ElementRef, inject, OnDestroy, OnInit, signal, ViewChild } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 import { LoginService } from '../../services/loginService/login.service';
 import { AlertService } from '../../services/alertService/alert.service';
@@ -425,7 +425,7 @@ export default class ChatComponent implements OnInit, OnDestroy {
                 receiver: this.receiverId
               }
               // this.messages.update(chats => [...chats, chatData])
-              this.userReceiverChats.update(chats => [...chats, chatData])
+              // this.userReceiverChats.update(chats => [...chats, chatData])
               // console.log('chats with user and receiver after audio uploaded : ', this.userReceiverChats());
 
               // this.getUserReceiverMessage(this.receiverId)
@@ -481,7 +481,7 @@ export default class ChatComponent implements OnInit, OnDestroy {
             // console.log('chats with user and receiver after file uploaded : ', this.messages());
 
             // this.getUserReceiverMessage(this.receiverId)
-            this.userReceiverChats.update(chats => [...chats, chatData])
+            // this.userReceiverChats.update(chats => [...chats, chatData])
             console.log('chats with user and receiver after file uploaded and filtered: ', this.userReceiverChats());
 
             // this.chatForm.get('chats.message')?.setValue(res.body?.data.imgUrl)

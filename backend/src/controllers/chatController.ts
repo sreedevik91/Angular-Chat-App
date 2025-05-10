@@ -57,7 +57,8 @@ export class ChatController implements IChatController {
             const name = req.file?.originalname
             const type = await getFileType(req.file?.mimetype!)
 
-            let imgUrlData = await this.chatServices.uploadToCloudinary(img!, name!, type!)
+            // let imgUrlData = await this.chatServices.uploadToCloudinary(img!, name!, type!)
+            let imgUrlData = await this.chatServices.uploadToCloudinary(req.file?.buffer!, type!)
             console.log('cloudinary imgUrl controller response: ', imgUrlData);
 
             imgUrlData?.success ? ResponseHandler.successResponse(res, HttpStatusCodes.OK, imgUrlData) : next(new AppError(imgUrlData))
@@ -74,7 +75,8 @@ export class ChatController implements IChatController {
             console.log('audio data from angular: ', req.file);
             const audio = req.file?.path
             const name = req.file?.originalname
-            let audioUrlData = await this.chatServices.uploadAudioToCloudinary(audio!, name!)
+            // let audioUrlData = await this.chatServices.uploadAudioToCloudinary(audio!)
+            let audioUrlData = await this.chatServices.uploadAudioToCloudinary(req.file?.buffer!)
             console.log('cloudinary audioUrl controller response: ', audioUrlData);
 
             audioUrlData?.success ? ResponseHandler.successResponse(res, HttpStatusCodes.OK, audioUrlData) : next(new AppError(audioUrlData))

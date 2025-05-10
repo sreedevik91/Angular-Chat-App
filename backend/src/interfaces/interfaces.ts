@@ -212,8 +212,8 @@ export interface IChatRepository{
   export interface IChatService{
     getChatsByUserId(userId: string):Promise<IResponse>
     saveChats(data: IChat):Promise<IResponse>
-    uploadToCloudinary(img: string,name:string,type: "image" | "video" | "raw" | "auto" | undefined):Promise<IResponse>
-    uploadAudioToCloudinary(audio: string,name:string):Promise<IResponse>
+    uploadToCloudinary(img: Buffer<ArrayBufferLike>,type: "image" | "video" | "raw" | "auto" | undefined):Promise<IResponse>
+    uploadAudioToCloudinary(audio: Buffer<ArrayBufferLike>):Promise<IResponse>
     getChatsByRoomId(roomId: string):Promise<IResponse>
 }
   

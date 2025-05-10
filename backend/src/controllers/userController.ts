@@ -103,7 +103,8 @@ export class UserController implements IUserController {
             let imgName = file ? file.filename : ''
             // let imgPath = file ? file.originalname : ''
             let imgPath = file ? file.path : ''
-            let cloudinaryImgData = await getImgUrl(imgPath, { public_id: imgName, type: "authenticated", sign_url: true })
+            // let cloudinaryImgData = await getImgUrl(imgPath, { public_id: imgName, type: "authenticated", sign_url: true })
+            let cloudinaryImgData = await getImgUrl(req.file?.buffer)
             console.log('cloudinaryImgData:', cloudinaryImgData);
             
             let img = cloudinaryImgData.data?.imgUrl

@@ -7,8 +7,8 @@ const connectDb= ()=>{
     mongoose.connect(process.env.MONGODB_CONNECTION_STRING!).then(()=>{
         console.log('database connected');
         
-    }).catch(()=>{
-        console.error('something went wrong while connecting to database');
+    }).catch((error)=>{
+        console.error('something went wrong while connecting to database',error);
         
     })
 }

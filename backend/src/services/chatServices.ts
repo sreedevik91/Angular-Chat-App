@@ -81,11 +81,12 @@ export class ChatServices implements IChatService {
 
     }
 
-    async uploadToCloudinary(img: string, name: string, type: "image" | "video" | "raw" | "auto" | undefined) {
+    async uploadToCloudinary(img: Buffer<ArrayBufferLike>, type: "image" | "video" | "raw" | "auto" | undefined) {
 
         try {
 
-            const uploadImgVideo = await getImgVideoUrl(img, { public_id: name, resource_type: type, type:"authenticated",sign_url: true,secure:true })
+            // const uploadImgVideo = await getImgVideoUrl(img, { public_id: name, resource_type: type, type:"authenticated",sign_url: true,secure:true })
+            const uploadImgVideo = await getImgVideoUrl(img,type)
             console.log('cloudinary img/video upload result: ', uploadImgVideo);
             return uploadImgVideo
 
@@ -96,11 +97,12 @@ export class ChatServices implements IChatService {
         }
     }
 
-    async uploadAudioToCloudinary(audio: string, name: string) {
+    async uploadAudioToCloudinary(audio:  Buffer<ArrayBufferLike>) {
 
         try {
             
-            const uploadAudio = await getAudioUrl(audio, { public_id: name, resource_type: 'video',type:"authenticated",sign_url: true,secure:true})
+            // const uploadAudio = await getAudioUrl(audio, { public_id: name, resource_type: 'video',type:"authenticated",sign_url: true,secure:true})
+            const uploadAudio = await getAudioUrl(audio)
             console.log('cloudinary audio upload result: ', uploadAudio);
             return uploadAudio
 
