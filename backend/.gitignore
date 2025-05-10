@@ -1,4 +1,7 @@
-echo "node_modules/
-dist/
-.env
-*.log" > .gitignore
+# echo "node_modules/
+# dist/
+# .env
+# *.log" > .gitignore
+
+*.env
+node_modules
